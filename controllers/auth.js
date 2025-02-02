@@ -24,7 +24,6 @@ const signup = async (req, res) => {
             email,
             password: hashedPassword,
             verificationToken: verificationToken,
-            // verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000   // 24 hours
             verificationTokenExpiresAt: Date.now() + 15 * 60 * 1000   // 15 min
         });
         generateTokenAndSetCookie(res, newUser._id);
@@ -41,7 +40,6 @@ const signup = async (req, res) => {
 
 const checkAuthBeforeVerifyEmail = async (req, res) => {
     try {
-        // const user = await User.findById(req.userId).select("-password");
         const user = await User.findById(req.userId);
         if (!user) {
             return res.status(404).json({ message: "User Not found" });
